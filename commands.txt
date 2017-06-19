@@ -1,0 +1,10 @@
+docker build -t kainobor/spherq-go ./go
+docker build -t kainobor/spherq-postgres ./postgres
+
+docker run --name spherq-postgres -p 5432:5432 -e POSTGRES_PASSWORD=pass -e POSTGRES_DB=spherq -e POSTGRES_HOST=localhost -d kainobor/spherq-postgres
+docker run --name spherq-go -p 8080:8080 --link spherq-postgres -d kainobor/spherq-go
+
+----------------------------------------
+
+Old:
+docker run --rm -p 8080:8080 kainobor/spherq-go
